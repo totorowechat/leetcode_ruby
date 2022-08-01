@@ -1,5 +1,5 @@
 * Add new problem
 
 #+begin_src bash
-  ./bin/gen_template new -n <problem name> -u <problem number>
+  ./bin/gen_template new -n "61. Rotate List"
 #+end_src

@@ -5,9 +5,9 @@ require 'thor'
 require 'erb'
 
 class Problem
-  def initialize(name, number)
-    @name = name.strip
-    @number = number
+  def initialize(name)
+    @name = name.split('.').last.strip
+    @number = name.split('.').first.strip
   end
 
   def module_name
@@ -47,9 +47,8 @@ end
 class MyCLI < Thor
   desc 'new', 'generate problem template'
   option :name, required: true, aliases: :n, banner: '<problem name>'
-  option :number, required: true, aliases: :u, banner: '<problem number>'
   def new
-    problem = Problem.new(options[:name], options[:number])
+    problem = Problem.new(options[:name])
 
     puts "generate #{problem.filename}.rb"
     problem.build
