@@ -60,7 +60,7 @@ module LeetcodeRuby
 
     # @param {Integer[][]} matrix
     # @return {Integer[]}
-    def self.spiral_order(matrix)
+    def spiral_order(matrix)
       item = Item.new(matrix)
       (item.size - 1).times do
         item.move
