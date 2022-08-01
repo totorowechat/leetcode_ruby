@@ -1,5 +1,19 @@
-* Add new problem
+*** Install
+
+#+begin_src bash
+bundle install
+#+end_src
+
+
+*** Get Start
+
+*add new problem*
 
 #+begin_src bash
   ./bin/gen_template new -n "61. Rotate List"
 #+end_src
+
+
+*** Todo List
+
+- add =remove= option to cli
