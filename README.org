@@ -1,0 +1,5 @@
+* Add new problem
+
+#+begin_src bash
+  ./bin/gen_template new -n <problem name> -u <problem number>
+#+end_src

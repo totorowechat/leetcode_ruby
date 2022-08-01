@@ -1,0 +1,59 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'thor'
+require 'erb'
+
+class Problem
+  def initialize(name, number)
+    @name = name
+    @number = number
+  end
+
+  def module_name
+    @name.split('_').map(&:capitalize).join
+  end
+
+  def filename
+    "#{@number.to_s.rjust(4, '0')}_#{@name}"
+  end
+
+  def filename_spec
+    "#{filename}_spec"
+  end
+
+  def build
+    result = ERB.new(File.read(File.join(File.dirname(__FILE__), '../assets/problem.erb'))).result(binding)
+    File.write(File.join(File.dirname(__FILE__), "../lib/leetcode_ruby/#{filename}.rb"),
+               result, mode: 'w+')
+  end
+
+  def build_spec
+    result = ERB.new(File.read(File.join(File.dirname(__FILE__), '../assets/problem_spec.erb'))).result(binding)
+    File.write(File.join(File.dirname(__FILE__), "../spec/#{filename_spec}.rb"),
+               result, mode: 'w')
+  end
+
+  def append_require
+    File.write(File.join(File.dirname(__FILE__), '../lib/leetcode_ruby.rb'),
+               "require_relative 'leetcode_ruby/#{filename}'", mode: 'a+')
+  end
+end
+
+class MyCLI < Thor
+  desc 'new', 'generate problem template'
+  option :name, required: true, aliases: :n, banner: '<problem name>'
+  option :number, required: true, aliases: :u, banner: '<problem number>'
+  def new
+    problem = Problem.new(options[:name], options[:number])
+
+    puts "generate #{problem.filename}.rb"
+    problem.build
+    puts "generate #{problem.filename_spec}.rb"
+    problem.build_spec
+    puts "add \"require_relative '#{options[:name]}'\" to lib/leetcode_ruby.rb"
+    problem.append_require
+  end
+end
+
+MyCLI.start(ARGV)

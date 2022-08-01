@@ -5,3 +5,5 @@ source 'https://rubygems.org'
 gem 'rubocop', '~> 1.32'
 
 gem 'rspec', '~> 3.11'
+
+gem 'thor', '~> 1.2'
