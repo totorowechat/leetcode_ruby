@@ -32,7 +32,6 @@ module LeetcodeRuby
         (0..n - 1).each do |i|
           v.push(i + 1)
         end
-        print "#{v}\n"
         result = ['']
         find_kth_permutation(v, k, result)
         result[0]
